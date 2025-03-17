@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oudies_Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --burger-orange: #FF5722;
+      --burger-black: #1a1a1a;
+      --burger-white: #f5f5f5;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--burger-black);
+      color: var(--burger-white);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header Styles */
+    .menu-header {
+      position: relative;
+      overflow: hidden;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    
+    .menu-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 33%;
+      height: 100%;
+      background-color: rgba(255, 87, 34, 0.3);
+      border-bottom-right-radius: 100px;
+      z-index: 0;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      max-width: 200px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+    
+    .title {
+      font-family: 'Anton', sans-serif;
+      font-size: 4rem;
+      color: var(--burger-orange);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    /* Menu Sections */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .menu-category {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+    
+    .menu-category::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--burger-orange);
+      opacity: 0.5;
+    }
+    
+    .category-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .menu-item {
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+    
+    .menu-item:hover {
+      transform: translateX(5px);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    
+    .item-name {
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: var(--burger-orange);
+    }
+    
+    .item-price {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.2rem;
+    }
+    
+    .item-ingredients {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-style: italic;
+    }
+    
+    /* Footer */
+    .footer {
+      margin-top: 3rem;
+      padding: 2rem 1rem;
+    }
+    
+    .footer-notes {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-note {
+      color: rgba(255, 87, 34, 0.9);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .contact-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .icon {
+      color: var(--burger-orange);
+      width: 24px;
+      height: 24px;
+    }
+    
+    .qr-code-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    
+    .qr-code-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      position: relative;
+      max-width: 90%;
+      text-align: center;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background-color: var(--burger-orange);
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .qr-title {
+      font-family: 'Anton', sans-serif;
+      color: var(--burger-orange);
+      margin-bottom: 1rem;
+    }
+    
+    .qr-image {
+      width: 250px;
+      height: 250px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+    
+    .qr-description {
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .qr-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--burger-orange);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .qr-button:hover {
+      background-color: #E64A19;
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .title {
+        font-size: 3rem;
+      }
+      
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="menu-header">
+      <div class="header-content">
+        <img src="data:image/png;base64,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" alt="Oudie's Burger Logo" class="logo">
+        <h1 class="title">Oudie's<br>Burger</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="menu-grid">
+        <section class="menu-category">
+          <h2 class="category-title">Beef Burgers</h2>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Oudie's Burger</span>
+                <span class="item-price">$6.5</span>
+              </div>
+              <p class="item-ingredients">Char-Grilled Beef Patty 140g, Cheese, Caramelized Onions, Special Sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Honey Burger</span>
+                <span class="item-price">$7.5</span>
+              </div>
+              <p class="item-ingredients">Char-Grilled Beef Patty 140g,  Ice berg, Dill Pickles, Honey, Cheese, special sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Jam Burger</span>
+                <span class="item-price">$7.5</span>
+              </div>
+              <p class="item-ingredients">Char-Grilled Beef Patty 140g, Cherry Jam, Dill Pickles.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Cheesy Burger</span>
+                <span class="item-price">$7.5</span>
+              </div>
+              <p class="item-ingredients">Char-Grilled Beef Patty 140g, Ice Berg, Tomato, Mozzarella Patty, Special sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Swiss Mushroom Burger</span>
+                <span class="item-price">$7.5</span>
+              </div>
+              <p class="item-ingredients">Char-Grilled Beef Patty 140g, Caramelized Mushrooms, Swiss Cheese, Special Sauce</p>
+            </div>
+          </div>
+        </section>
+        
+	<section class="menu-category">
+          <h2 class="category-title">Chicken Burgers</h2>
+          <div class="menu-items">
+	    <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Nashville Chicken Burger</span>
+                <span class="item-price">$6.5</span>
+              </div>
+              <p class="item-ingredients">Fried Chicken, Coleslaw, Dill pickles, Nashville hot sauce, Honey.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">BBQ Chicken Burger</span>
+                <span class="item-price">$6</span>
+              </div>
+              <p class="item-ingredients">Fried Chicken, BBQ Sauce, Ranch Sauce, Coleslaw, tomato</p>
+            </div>
+            
+	    <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Chicken Honey Mustard</span>
+                <span class="item-price">$7.5</span>
+              </div>
+              <p class="item-ingredients">Fried Chicken, Ice Berg, Dill pickles, Mozzarella Patty, Honey Mustard Sauce.</p>
+            </div>
+	  </div>
+        </section>
+
+        <section class="menu-category">
+          <h2 class="category-title">Appetizers</h2>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">French Fries</span>
+                <span class="item-price">$2.5</span>
+              </div>
+              <p class="item-ingredients">Fresh Potatoes, special seasoning.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Curly Fries</span>
+                <span class="item-price">$4.5</span>
+              </div>
+              <p class="item-ingredients">Spiral potatoes, special seasoning.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Mozzarella Sticks</span>
+                <span class="item-price">$3</span>
+              </div>
+              <p class="item-ingredients">Breaded mozzarella, Special Sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Kids Meal</span>
+                <span class="item-price">$4</span>
+              </div>
+              <p class="item-ingredients">Fried Crispy, fries, Ketchup.</p>
+            </div>
+          </div>
+        </section>
+        
+        <section class="menu-category">
+          <h2 class="category-title">Specialties</h2>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Chicken Loaded Fries</span>
+                <span class="item-price">$6</span>
+              </div>
+              <p class="item-ingredients">Fried Crispy, French Fries, BQQ Sauce, Ranch Sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Beef Loaded Fries</span>
+                <span class="item-price">$8</span>
+              </div>
+              <p class="item-ingredients">2 Char-Grilled Beef Patty 140g, French Fries, Cheese, Honey, Special Sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Boneless</span>
+                <span class="item-price">$6</span>
+              </div>
+              <p class="item-ingredients">Fried Crispy, Tortilla Wrap, Ice Berg, BQQ Sauce, Ranch Sauce, sticks.</p>
+            </div>
+
+	    <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Special Boneless</span>
+                <span class="item-price">$7</span>
+              </div>
+              <p class="item-ingredients">Fried Crispy, Tortilla Wrap, Mozzarella Sticks, Ice Berg, sticks, Special Sauce.</p>
+            </div>
+          </div>
+        </section>
+        
+        <section class="menu-category">
+          <h2 class="category-title">Beverages</h2>
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Glass Soft Drink</span>
+                <span class="item-price">$0.5</span>
+              </div>
+              <p class="item-ingredients">Pepsi, Seven Up, Miranda.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Soft Drinks</span>
+                <span class="item-price">$1</span>
+              </div>
+              <p class="item-ingredients">Pepsi, Seven Up, Diet Pepsi, Diet Seven Up</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="item-header">
+                <span class="item-name">Sparkling Water</span>
+                <span class="item-price">$1.5</span>
+              </div>
+              <p class="item-ingredients">Carbonated mineral water with lemon</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-notes">
+        <p class="footer-note">All Burgers are served with fries</p>
+        <p class="footer-note">All Burgers served on a Potato Bun</p>
+        <p class="footer-note">Upgrade to a Double Beef Patty for just +$2</p>
+        <p class="footer-note">Curly Fries beside a burger +$2</p>
+      </div>
+      
+      <h2 class="contact-title">Order Here</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>71-61 87 75</span>
+        </div>
+        
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Oudie's Burger</span>
+        </div>
+        
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span>Hasbaya, Main Street, Padel 07</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <button class="qr-button" id="qrButton">View QR Code</button>
+  
+  <div class="qr-code-section" id="qrSection">
+    <div class="qr-code-container">
+      <button class="close-btn" id="closeQr">×</button>
+      <h2 class="qr-title">Share Our Digital Menu</h2>
+      <div class="qr-image">
+        <!-- QR code for current page - we'll use a data URL so it's embedded in the HTML -->
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAYAAABRRIOnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAWTSURBVHhe7ZDRjeM8DERTiXtJS2mhldqd5wNr/WbgEZlAQQgI5kOQ9c/Pz89fCQ0IQQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGhKCAUBYSigFAUEIoCQlFAKAoIRQGh+KiAcPLv7+/oV7fL9hQfERBIoZj3oWfZHNPHAYEMJ0hJfQ+rZbOLjwoIJNCuIfTMf8v2Nz4iILbg9/XRcw+rZXubLgGB9HFVe9AHfWu79q3t2oeYYbVsd9ElIJA8rorjfljV/sKtffRBH1bNdhedAoLXVW1V9PzCrr19vK6v7Wc6BgSvq9q60LN+Ri/j9dqc7gGB5HFVWxd6pg+vq2VzOgcEr6vautAzfXhdLZvTOSDGd39P1NaFnr2uq2VzugcEr6vautAzfXhdLZuzooCgZ+9qWTRxVVsXerYjnGOF6woIJI8r2tDv+hntvK76+XFFzyrPtJVV+c4sISD4ua6RtHFFG/pd3+5j83NdI2njirZr4p6yrXxnlhAQ/FzXSNq4om1H2F7XSNq4om1H2G4v35mlBAQ/1/Uzuo0r2rqQtPFzXT+j27iibUfYbi/fmaUEBJLHcV0j3cYVbTtizuO4rpFu44q2HWG7vXxnlhQQSB7HdY10G1e07Qg7j+O6RrqNK9p2hO328p1ZUkAgbRzXNdJtXNF2LZN2HNc10m1c0XZN9Mlul++eJQUEksexa5S+t3FF27VMmsex65m5tnFF27VM2rGrfPcsLSCQPJZdVwWQ5LFsO44VZLnluysMCCSPZXvR2zPOy7bjWEGWW767woBAtmPZqyKQ7Vi2HccKstzy3RUGBJIHJK/XxW3PbZDkAcnrdXHbc1skecDy6nfPUgMCWQ7IXq+L255bIccB2et1cdtzOyC7vPrdFQcEchwQvl4Xtz23QoYDwtfr4rbnlkhxgPrKd88SAwLpDlBfr4vbnlsgwQHq63Vx23NLJDhAfuW7Z4kBgewKkK++vu25JbLrQF51JiAwIDoD9NfX2Xc7ZNdBgPpMQGBAdB0gYD0TENgR0nWAgvVMQGBHyK6DCOS6+m6H7DpIUJ8JCOyIvAZJUJ8JCOyA5BqkQX0mILAD8hpkQX0mILADsmdAVkBgR8iuAwTkz7TvCNl1gIL8mfYdkdeAhvyZ9h2R1yAP8mfad0RegwLIn2nfEdkVFEH+TOuOyGtQBgUz7TsiuyIEwmfa9gPJaxAGYTPt+4HsijConWnfD2RXxEFosf93Q15DIBSW7P/dkNcQCqVl+383ZFcEQ2nZ/t8NeQ3hUFqy/3dDXsMDoLRk/++GvIYHQWnJ/t8NeQ0PhNKC/b8b8hoeCKUF+3835DU8GEoL9v9uyGt4MJSe7P/dkNfwgCg92f+7Ia/hQVF6sv93Q17DA6P0ZP/vhryGB0fpwf7fDXkND47Sg/2/G/IaFgClB/t/N+Q1LAhKD/b/bshrWBiU7u3/3ZDXsDAvlF/aeV/I/5PXsEBf6P8LpXv7n/8nr2FB/HdA/q6W/A/yGhYEBUSVvIYFQQFRJa9hQVBAVMlrWBAUEFXyGhYEBUSVvIYFQQFRJa9hQVBAVMlrWBAUEFXyGhYEBUSVvIYFQQFRJa9hQVBAVMlrWBAUEFXyGhYEBUSVvIYFQQFRJa9hQVBAVMlrWBD/AFhyJCSoJDpGAAAAAElFTkSuQmCC" alt="QR Code for Oudie's Burger" width="200">
+      </div>
+      <p class="qr-description">Scan to view our digital menu</p>
+    </div>
+  </div>
+  
+  <script>
+    // QR Code functionality
+    const qrButton = document.getElementById('qrButton');
+    const qrSection = document.getElementById('qrSection');
+    const closeQr = document.getElementById('closeQr');
+    
+    qrButton.addEventListener('click', function() {
+      qrSection.style.display = 'flex';
+    });
+    
+    closeQr.addEventListener('click', function() {
+      qrSection.style.display = 'none';
+    });
+    
+    // Close QR code when clicking outside the container
+    qrSection.addEventListener('click', function(e) {
+      if (e.target === qrSection) {
+        qrSection.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
